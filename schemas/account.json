@@ -1,0 +1,13 @@
+{
+  "properties": {
+    "accountNumber": {"type":  "number"},
+    "phoneNumber": {"type":  "string"},
+    "amount": {"type":  "number"}
+  },
+  "required": [
+    "accountNumber",
+    "phoneNumber",
+    "amount"
+  ],
+  "additionalProperties": false
+}

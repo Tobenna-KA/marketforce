@@ -1,0 +1,26 @@
+{
+  "properties": {
+    "transactions": {
+      "type":  "array",
+      "items" : {
+        "properties": {
+          "accountNumber": {"type":  "number"},
+          "phoneNumber": {"type":  "string"},
+          "amount": {"type":  "number"}
+        },
+        "required": [
+          "accountNumber",
+          "phoneNumber",
+          "amount"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "payer_account": {"type":  "number"}
+  },
+  "required": [
+    "transactions",
+    "payer_account"
+  ],
+  "additionalProperties": false
+}

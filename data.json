@@ -1,0 +1,13 @@
+{
+  "transactions": [
+    {
+      "amount": 100,
+      "accountNumber": 100000000003
+    },
+    {
+      "amount": 100,
+      "accountNumber": 100000000002
+    }
+  ],
+  "payer_account": 100000000001
+}

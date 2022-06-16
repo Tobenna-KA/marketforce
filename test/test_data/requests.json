@@ -1,0 +1,157 @@
+{
+  "good_req": {
+    "transactions": [
+      {
+        "amount": 100,
+        "accountNumber": 100000000003,
+        "phoneNumber": "+254910121113"
+      },
+      {
+        "amount": 100,
+        "accountNumber": 100000000002,
+        "phoneNumber": "+254910121114"
+      }
+    ],
+    "payer_account": 100000000001
+  },
+  "no_payer_req": {
+    "transactions": [
+      {
+        "amount": 100,
+        "accountNumber": 100000000003,
+        "phoneNumber": "+254910121113"
+      },
+      {
+        "amount": 100,
+        "accountNumber": 100000000002,
+        "phoneNumber": "+254910121114"
+      }
+    ],
+    "payer_account": null
+  },
+  "unknown_payer_req": {
+    "transactions": [
+      {
+        "amount": 100,
+        "phoneNumber": "+254910121113",
+        "accountNumber": 100000000003
+      },
+      {
+        "amount": 100,
+        "accountNumber": 100000000002,
+        "phoneNumber": "+254910121114"
+      }
+    ],
+    "payer_account": 110000000006
+  },
+  "insufficient_funds_req": {
+    "transactions": [
+      {
+        "amount": 4500,
+        "accountNumber": 100000000003,
+        "phoneNumber": "+254910121113"
+      },
+      {
+        "amount": 200,
+        "accountNumber": 100000000002,
+        "phoneNumber": "+254910121114"
+      },
+      {
+        "amount": 5000,
+        "accountNumber": 100000000006,
+        "phoneNumber": "+254910121110"
+      }
+    ],
+    "payer_account": 100000000001
+  },
+  "user_not_found_req": {
+    "transactions": [
+      {
+        "amount": 4500,
+        "accountNumber": 100000000003,
+        "phoneNumber": "+254910121113"
+      },
+      {
+        "amount": 200,
+        "accountNumber": 100000000002,
+        "phoneNumber": "+254910121114"
+      },
+      {
+        "amount": 200,
+        "accountNumber": 110000000006,
+        "phoneNumber": "+254910121110"
+      }
+    ],
+    "payer_account": 100000000001
+  },
+  "bad_limit_req": {
+    "transactions": [
+      {
+        "amount": 100,
+        "accountNumber": 100000000003,
+        "phoneNumber": "+254910121113"
+      },
+      {
+        "amount": 100,
+        "accountNumber": 100000000002,
+        "phoneNumber": "+254910121114"
+      },
+      {
+        "amount": 100,
+        "accountNumber": 100000000002,
+        "phoneNumber": "+254910121114"
+      },
+      {
+        "amount": 100,
+        "accountNumber": 100000000003,
+        "phoneNumber": "+254910121114"
+      },
+      {
+        "amount": 100,
+        "accountNumber": 100000000032,
+        "phoneNumber": "+254910121114"
+      },
+      {
+        "amount": 100,
+        "accountNumber": 100000030002,
+        "phoneNumber": "+254910121114"
+      },
+      {
+        "amount": 100,
+        "accountNumber": 100000000070,
+        "phoneNumber": "+254910121114"
+      },
+      {
+        "amount": 100,
+        "accountNumber": 100000000002,
+        "phoneNumber": "+254910121114"
+      },
+      {
+        "amount": 100,
+        "accountNumber": 100000000002,
+        "phoneNumber": "+254910121114"
+      },
+      {
+        "amount": 100,
+        "accountNumber": 100000000002,
+        "phoneNumber": "+254910121114"
+      },
+      {
+        "amount": 100,
+        "accountNumber": 100000000002,
+        "phoneNumber": "+254910121114"
+      },
+      {
+        "amount": 100,
+        "accountNumber": 100000000002,
+        "phoneNumber": "+254910121114"
+      },
+      {
+        "amount": 100,
+        "accountNumber": 100000000002,
+        "phoneNumber": "+254910121114"
+      }
+    ],
+    "payer_account": 100000000001
+  }
+}
