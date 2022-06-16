@@ -4,6 +4,7 @@ import chai from "chai";
 import chaiHttp from "chai-http";
 import { app } from '../app.js'
 import request from './test_data/requests.json'
+import { uuid } from 'uuidv4';
 const should = chai.should()
 
 chai.use(chaiHttp)
@@ -12,6 +13,7 @@ const testTransfers = () => {
     it('Should successfully complete a bulk transfer', done => {
         chai.request(app)
         .post('/api/v1/transfers')
+        .set({ 'idempotency-key': uuid()})
         .send(request.good_req)
         .end((req, res) => {
             res.should.have.status(200)
@@ -34,8 +36,10 @@ const testNoPayerReq = () => {
     it('Should fail due [\'undefined must be number\']', done => {
         chai.request(app)
         .post('/api/v1/transfers')
+        .set({ 'idempotency-key': uuid()})
         .send(request.no_payer_req)
         .end((req, res) => {
+            console.log(res.body)
             res.should.have.status(400)
             res.body.should.be.a('object')
             res.body.should.have.property('error')
@@ -52,6 +56,7 @@ const testUnknownPayer = () => {
     it('Should fail due [\'Unknown payer\']', done => {
         chai.request(app)
         .post('/api/v1/transfers')
+        .set({ 'idempotency-key': uuid()})
         .send(request.unknown_payer_req)
         .end((req, res) => {
             res.should.have.status(400)
@@ -70,6 +75,7 @@ const testInsufficientFunds = () => {
     it('Should fail due [\'Insufficient funds.\']', done => {
         chai.request(app)
         .post('/api/v1/transfers')
+        .set({ 'idempotency-key': uuid()})
         .send(request.insufficient_funds_req)
         .end((req, res) => {
             res.should.have.status(400)
@@ -88,6 +94,7 @@ const testUserNotFound = () => {
     it('Should fail due [\'Unknown user.\']', done => {
         chai.request(app)
         .post('/api/v1/transfers')
+        .set({ 'idempotency-key': uuid()})
         .send(request.user_not_found_req)
         .end((req, res) => {
             res.should.have.status(400)
@@ -106,6 +113,7 @@ const testBadLimitReq = () => {
     it('Should fail due [\'Transfer Limit\']', done => {
         chai.request(app)
         .post('/api/v1/transfers')
+        .set({ 'idempotency-key': uuid()})
         .send(request.bad_limit_req)
         .end((req, res) => {
             res.should.have.status(400)

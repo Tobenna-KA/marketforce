@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 
-export const AccountSchema = {
+export const WalletSchema = {
     accountNumber: {
         type: DataTypes.INTEGER,
         unique: true

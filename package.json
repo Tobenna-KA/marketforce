@@ -1,5 +1,10 @@
 {
   "name": "marketforce",
+  "author": {
+    "name": "Tobenna K. O. Abanofor",
+    "email": "micatovin@gmail.com",
+    "url": "https://github.com/Tobenna-KA"
+  },
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,7 +14,6 @@
     "test": "cross-env NODE_ENV=test mocha --experimental-json-modules --timeout 30000 --exit"
   },
   "keywords": [],
-  "author": "",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.18.5",
@@ -27,6 +31,7 @@
     "glob": "^8.0.3",
     "nodemon": "^2.0.16",
     "sequelize": "^6.20.1",
-    "sqlite3": "^5.0.8"
+    "sqlite3": "^5.0.8",
+    "uuidv4": "^6.2.13"
   }
 }
