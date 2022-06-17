@@ -8,12 +8,13 @@ import { uuid } from 'uuidv4';
 const should = chai.should()
 
 chai.use(chaiHttp)
+const _uuid = uuid()
 
 const testTransfers = () => {
     it('Should successfully complete a bulk transfer', done => {
         chai.request(app)
         .post('/api/v1/transfers')
-        .set({ 'idempotency-key': uuid()})
+        .set({ 'idempotency-key': _uuid})
         .send(request.good_req)
         .end((req, res) => {
             res.should.have.status(200)
@@ -27,6 +28,24 @@ const testTransfers = () => {
             res.body.account.accountNumber.should.be.eq(request.good_req.payer_account)
             res.body.account.should.have.property('balance')
             res.body.account.balance.should.be.eq(8800)
+            done()
+        })
+    })
+}
+const testIdempotency = () => {
+    it('Should fail[500] with result due to idempotency ', done => {
+        chai.request(app)
+        .post('/api/v1/transfers')
+        .set({ 'idempotency-key': _uuid})
+        .send(request.good_req)
+        .end((req, res) => {
+            res.should.have.status(500)
+            res.body.should.be.a('object')
+            res.body.should.have.property('transactions')
+            res.body.should.have.property('idempotency_key')
+            res.body.transactions.should.be.a('array')
+            res.body.idempotency_key.should.be.a('string')
+            res.body.idempotency_key.should.be.eq(_uuid)
             done()
         })
     })
@@ -136,6 +155,7 @@ describe('Node Service Tests', () => {
     });
     
     testTransfers()
+    testIdempotency()
     testUnknownPayer()
     testNoPayerReq()
     testInsufficientFunds()
