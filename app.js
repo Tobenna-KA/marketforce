@@ -40,7 +40,7 @@ const idempotencyMiddleWare = async (req, res, next) => {
         })
         
         if (transaction) {
-            // return transaction to client with a HTTP Error
+            // return transaction to client with an HTTP Error
             return res.status(500).send(transaction)
         }
         
