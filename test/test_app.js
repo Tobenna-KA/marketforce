@@ -32,6 +32,24 @@ const testTransfers = () => {
         })
     })
 }
+
+const testNoIdempotencyKey = () => {
+    it(`Should fail[500] with [\'idempotency-key: <required>\']`, done => {
+        chai.request(app)
+        .post('/api/v1/transfers')
+        .send(request.good_req)
+        .end((req, res) => {
+            res.should.have.status(400)
+            res.body.should.be.a('object')
+            res.body.should.have.property('error')
+            res.body.should.have.property('errorMessage')
+            res.body.errorMessage.should.be.a('string')
+            res.body.errorMessage.should.be.eq('idempotency-key: <required>')
+            done()
+        })
+    })
+}
+
 const testIdempotency = () => {
     it('Should fail[500] with result due to idempotency ', done => {
         chai.request(app)
@@ -156,6 +174,7 @@ describe('Node Service Tests', () => {
     
     testTransfers()
     testIdempotency()
+    testNoIdempotencyKey()
     testUnknownPayer()
     testNoPayerReq()
     testInsufficientFunds()
