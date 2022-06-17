@@ -11,7 +11,7 @@ accounts. The endpoint should limit sending to up to 10 accounts at a go.
 - Phone Number
 
 
-``TIP``: Ensure the right API standards are applied and the code has the necessary tests for this
+**TIP**: Ensure the right API standards are applied and the code has the necessary tests for this
   work.
 
 
