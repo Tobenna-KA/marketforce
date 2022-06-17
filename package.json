@@ -11,6 +11,7 @@
   "type": "module",
   "scripts": {
     "start": "nodemon app.js",
+    "load_test": "cross-env IGNORE_IDEMPOTENCY=true nodemon app.js",
     "test": "cross-env NODE_ENV=test mocha --experimental-json-modules --timeout 30000 --exit"
   },
   "keywords": [],
@@ -27,6 +28,7 @@
     "ajv": "^8.11.0",
     "ajv-errors": "^3.0.0",
     "cross-env": "^7.0.3",
+    "dotenv-flow": "^3.2.0",
     "express": "^4.18.1",
     "glob": "^8.0.3",
     "nodemon": "^2.0.16",

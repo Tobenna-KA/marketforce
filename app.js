@@ -3,9 +3,13 @@ import {processTransfers, createTransaction, updateTransaction} from './lib/tran
 import { init, Wallets, Transactions } from './db.js'
 import { addSchemas, validateJson, extractSchemaError} from "./lib/schema.js";
 
+import dotenv from 'dotenv-flow' // initializes environment variables
+dotenv.config()
+
 export const app = express()
 const port = 3311
 const LIMIT = 10
+const { IGNORE_IDEMPOTENCY } = process.env
 
 // middle ware to allow express to handle request body
 app.use(express.json())
@@ -25,6 +29,9 @@ init()
  */
 const idempotencyMiddleWare = async (req, res, next) => {
     try {
+        // ignore idempotency
+        if (IGNORE_IDEMPOTENCY === 'true') return next()
+        
         const idempotencyKey = req.headers['idempotency-key']
         
         if (!idempotencyKey) {
@@ -57,6 +64,7 @@ const idempotencyMiddleWare = async (req, res, next) => {
 app.post('/api/v1/transfers', idempotencyMiddleWare, async (req, res) => {
     let status = 200
     const transactions = req.body.transactions || [] // extract a list of transfers
+    const idempotencyKey = req.headers['idempotency-key']
     
     try {
         const accountNumber = req.body.payer_account// extract a list of transfers
@@ -70,11 +78,13 @@ app.post('/api/v1/transfers', idempotencyMiddleWare, async (req, res) => {
                 })
         } else {
             // create transaction since it wasn't found previously at idempotencyMiddleWare
-            await createTransaction({
-                idempotency_key: req.headers['idempotency-key'],
-                payer_account: req.body.payer_account,
-                transactions: req.body.transactions
-            })
+            if (IGNORE_IDEMPOTENCY !== 'true') { // this will always pass except the middleware ignored
+                await createTransaction({
+                    idempotency_key: idempotencyKey,
+                    payer_account: req.body.payer_account,
+                    transactions: req.body.transactions
+                })
+            }
     
             // get payer
             const payer = (await Wallets.findOne({where: {accountNumber}}))?.dataValues
@@ -99,19 +109,21 @@ app.post('/api/v1/transfers', idempotencyMiddleWare, async (req, res) => {
         }
     
         // update transaction lock status
-        await updateTransaction(
-            {
-                lock_status: 'RELEASED',
-                transactions,
-                responseStatus: status
-            },
-            {
-                where: {
-                    idempotency_key: req.headers['idempotency-key'],
-                    payer_account: req.body.payer_account,
-                }
-            },
-        )
+        if (IGNORE_IDEMPOTENCY !== 'true') {
+            await updateTransaction(
+                {
+                    lock_status: 'RELEASED',
+                    transactions,
+                    responseStatus: status
+                },
+                {
+                    where: {
+                        idempotency_key: idempotencyKey,
+                        payer_account: req.body.payer_account,
+                    }
+                },
+            )
+        }
     } catch (e) {
         console.log(e)
         res.status(status = 500).send({

@@ -2,11 +2,13 @@
   "transactions": [
     {
       "amount": 100,
-      "accountNumber": 100000000003
+      "accountNumber": 100000000003,
+      "phoneNumber": "+254910121113"
     },
     {
       "amount": 100,
-      "accountNumber": 100000000002
+      "accountNumber": 100000000002,
+      "phoneNumber": "+254910121114"
     }
   ],
   "payer_account": 100000000001

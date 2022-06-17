@@ -14,6 +14,20 @@ accounts. The endpoint should limit sending to up to 10 accounts at a go.
 ``TIP``: Ensure the right API standards are applied and the code has the necessary tests for this
   work.
 
+
+# GETTING STARTED
+- `npm i` to install application dependencies
+- `npm run start` to start application
+- `npm run test` to test the application
+
+To easily test concurrency with an application like Apache `ab`, run:
+- `npm run load_test` to start server with `IGNORE_IDEMPOTENCY` = `true`
+- followed by the command `ab -n 100 -c 10 -p data.json -T application/json -rk http://localhost:3311/api/v1/transfers`
+
+<b>PS. for the purpose of this exercise I have committed `.env` files even though they should normally not be added to the repo
+
+# API
+
 ```http
 POST /api/v1/transfers
 ```

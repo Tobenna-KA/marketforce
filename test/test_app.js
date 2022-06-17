@@ -169,7 +169,7 @@ const testBadLimitReq = () => {
 describe('Node Service Tests', () => {
     before((done) => {
         // delay for app load
-        setTimeout(() => { done() }, 3000)
+        setTimeout(() => { done() }, 1000)
     });
     
     testTransfers()
