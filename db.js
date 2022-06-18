@@ -21,7 +21,7 @@ export const Transactions = sequelize.define(
 const accounts = [
     {
         accountNumber: 100000000001,
-        balance: 9000.0,
+        balance: process.env.IGNORE_IDEMPOTENCY === 'true' ? 900000: 9000.0,
         phoneNumber: '+254910121115'
     },
     {

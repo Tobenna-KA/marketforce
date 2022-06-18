@@ -47,7 +47,7 @@
   "insufficient_funds_req": {
     "transactions": [
       {
-        "amount": 4500,
+        "amount": 450000,
         "accountNumber": 100000000003,
         "phoneNumber": "+254910121113"
       },
